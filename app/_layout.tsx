@@ -10,25 +10,29 @@ import 'react-native-reanimated';
 SplashScreen.preventAutoHideAsync();
 
 const Layout = () =>{
-  const [loaded] = useFonts({
-    "Jakarta-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
+  const [fontsLoaded] = useFonts({
+    'JakartaSans-Regular': require('../assets/fonts/PlusJakartaSans-Regular.ttf'),
+    'JakartaSans-Bold': require('../assets/fonts/PlusJakartaSans-Bold.ttf'),
     "Jakarta-ExtraBold": require("../assets/fonts/PlusJakartaSans-ExtraBold.ttf"),
     "Jakarta-ExtraLight": require("../assets/fonts/PlusJakartaSans-ExtraLight.ttf"),
     "Jakarta-Light": require("../assets/fonts/PlusJakartaSans-Light.ttf"),
     "Jakarta-Medium": require("../assets/fonts/PlusJakartaSans-Medium.ttf"),
-    "Jakarta": require("../assets/fonts/PlusJakartaSans-Regular.ttf"),
     "Jakarta-SemiBold": require("../assets/fonts/PlusJakartaSans-SemiBold.ttf"),
   })
 
   useEffect(() => {
     const hideSplashScreen = async () => {
-      if (loaded) {
+      if (fontsLoaded) {
         await SplashScreen.hideAsync();
       }
     };
 
     hideSplashScreen();
-  }, [loaded]);
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null; // or a loading screen
+  }
 
   return (
       <Stack screenOptions={{ headerShown: false }}>
